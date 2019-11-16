@@ -1,5 +1,15 @@
-# ProyectoED
-El proyecto tiene el objetivo de simular el problema de Flavio Josefo, quien fue un historiador judío que vivió en el siglo primero. En cierta ocasión Josefo y 40 de sus soldados quedaron atrapados en una cueva mientras eran acechados por el ejercito romano. Antes que ser capturados y convertidos en esclavos, Josefo y su gente prefirieron morir y establecieron un método para suicidarse en serie. Este método consiste en ubicarse de forma circular y matarse entre ellos siguiendo las instrucciones: El primero mata al segundo y pasa la espada al tercero, el cual mataría al cuarto y pasa la espada al quinto y así sucesivamente. Al final quedarían dos personas, una mataría a la otra. Pero se piensa que Josefo ideo este método para al final quedar el con su amigo y evitar morir puesto que no se matarían.
+# ProyectoED 
+
+# Introducción
+Flavio Josefo fue un historiador judío que vivió en el siglo primero. En cierta ocasión, Josefo y cuarenta de sus
+soldados quedaron atrapados en una cueva mientras eran asechados por el ejército romano. Antes que ser
+capturados y convertidos en esclavos, Josefo y su gente prefirieron morir y establecieron un método para
+suicidarse en serie.
+En este proyecto, usted implementará una aplicación gráfica de JavaFX que simule la forma en que este
+suicidio colectivo pudo haber ocurrido. Como parte del diseño de su solución, usted deberá decidir cuáles de
+las estructuras de datos revisadas en el curso hasta ahora son las más apropiadas para implementar la
+simulación que se solicita.
+
 
 # Mecanismo de Eliminación
 Se cree que Josefo no era partidario de la auto eliminación y, para evitarla a toda costa, encontró una solución
