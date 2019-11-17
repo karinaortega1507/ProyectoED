@@ -17,11 +17,10 @@ public class Node<E> {
     /** 
      * Constructor para la clase Node
      */
-    public Node(){
+    public Node(E dato){
         next=null;
         prev= null;
-       
-       // dato=0; //pendiente ver si es necesario inicializar el dato
+        this.dato = dato; //el dato se crea al momento de inicializar la lista con valores enteros
           
     }
     /**
@@ -59,6 +58,10 @@ public class Node<E> {
 
     public void setDato(E dato) {
         this.dato = dato;
+    }
+    @Override
+    public String toString() {
+        return "dato=" + dato ;
     }
     
 }
