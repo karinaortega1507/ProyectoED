@@ -16,26 +16,58 @@ public class CircularDoublyLinkedList<E> implements List<E> {
     private Node head;
     private Node tail;
     private int size;
-
+    
     @Override
     public boolean isEmpty() {
         return size==0;
+    }
+/**
+ * El constructor CircularDoublyLinkedList recibe dos parámetros para ser creada.
+ * @param head indica el inicio de la lista doblemente enlazada (parámetro que 
+ * depende del ingreso del usuario al escoger el número de la persona que inicia 
+ * la ejecución)
+ * @param size indica el tamaño de la lista doblemente enlazada (parámetro que 
+ * depende del ingreso del usuario al escoger la cantidad de personas) 
+ */
+    public CircularDoublyLinkedList(Node head, int size) {
+        this.head = head;
+        this.size = size;
     }
 
     @Override
     public int getSize() {
         return size;
     }
+    @Override
+    public void add(E e) {
+        Node<E> nuevo = new Node<E>(e);
+        if (e == null)
+            return;
+        else if(isEmpty()){
+            tail = nuevo;
+            nuevo.setNext(nuevo);
+            nuevo.setPrev(nuevo);
+        }
+        else{
+            nuevo.setNext(tail.getNext());
+            nuevo.setPrev(tail.getPrev());
+            tail.setNext(nuevo);
+            tail = nuevo;
+        
+        }
+        size++;  
+    }
 
     @Override
     public void addHead(E dato) {
     }
-
-    @Override
+    
+     @Override
     public void addTail(E dato) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     @Override
     public void insertPos(E dato, int pos) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -91,10 +123,7 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void add(E e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void forEachRemaining(Consumer<? super E> action) {
