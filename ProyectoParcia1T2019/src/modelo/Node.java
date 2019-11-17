@@ -21,7 +21,7 @@ public class Node<E> {
         next=null;
         prev= null;
        
-       // dato=(Integer)0; //pendiente ver si es necesario inicializar el dato
+       // dato=0; //pendiente ver si es necesario inicializar el dato
           
     }
     /**

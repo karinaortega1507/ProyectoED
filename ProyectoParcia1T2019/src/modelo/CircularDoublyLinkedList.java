@@ -5,36 +5,39 @@
  */
 package modelo;
 
+import java.util.Spliterator;
+import java.util.function.Consumer;
+
 /**
  *
  * @author Rodriguez-Ortega-Baquerizo
  */
-public class CircularDoublyLinkedList implements List {
+public class CircularDoublyLinkedList<E> implements List<E> {
     private Node head;
     private Node tail;
     private int size;
+
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return size==0;
     }
 
     @Override
     public int getSize() {
+        return size;
+    }
+
+    @Override
+    public void addHead(E dato) {
+    }
+
+    @Override
+    public void addTail(E dato) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void addHead(Object dato) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addTail(Object dato) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void insertPos(Object dato, int pos) {
+    public void insertPos(E dato, int pos) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,11 +50,59 @@ public class CircularDoublyLinkedList implements List {
     public void imprimirPorValor() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public String toString(){
-        return "hola";
-    };
+    public boolean hasNext() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public E next() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean hasPrevious() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public E previous() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int nextIndex() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int previousIndex() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void set(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void add(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void forEachRemaining(Consumer<? super E> action) {
+        List.super.forEachRemaining(action); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
+
+  
     
 }

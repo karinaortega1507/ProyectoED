@@ -5,11 +5,17 @@
  */
 package modelo;
 
+import java.util.Iterator;
+import java.util.ListIterator;
+
+
+
 /**
  *
  * @author Rodriguez-Ortega-Baquerizo
+ * @param <E>
  */
-public interface List <E> {
+public interface List<E> extends ListIterator<E> {
     public boolean isEmpty();
     public int getSize();
     public void addHead(E dato);
