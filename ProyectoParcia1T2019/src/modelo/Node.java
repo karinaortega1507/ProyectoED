@@ -26,8 +26,8 @@ public class Node<E> {
     }
     /**
      * Constructor para la clase Node que recibe parametros
-     * @param anterior hace referencia al nodo anterior
-     * @param siguiente hace referencia al nodo siguiente
+     * @param previous hace referencia al nodo anterior
+     * @param next hace referencia al nodo siguiente
      * @param dato hace referencia al dato
      */
     
