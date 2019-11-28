@@ -12,30 +12,17 @@ package modelo;
 public class Node<E> {
     
     private Node next;
-    private Node prev;
+    private Node previous;
     private E dato;
     /** 
      * Constructor para la clase Node
      */
     public Node(E dato){
-        next=null;
-        prev= null;
+        next = previous = null;
         this.dato = dato; //el dato se crea al momento de inicializar la lista con valores enteros
           
     }
-    /**
-     * Constructor para la clase Node que recibe parametros
-     * @param previous hace referencia al nodo anterior
-     * @param next hace referencia al nodo siguiente
-     * @param dato hace referencia al dato
-     */
     
-    public Node(Node prev, Node next, E dato){
-        this.prev=prev;
-        this.next=next;
-        this.dato=dato;
-    }
-
     public Node getNext() {
         return next;
     }
@@ -44,12 +31,12 @@ public class Node<E> {
         this.next = next;
     }
 
-    public Node getPrev() {
-        return prev;
+    public Node getPrevious() {
+        return previous;
     }
 
-    public void setPrev(Node prev) {
-        this.prev = prev;
+    public void setPrevious(Node previous) {
+        this.previous = previous;
     }
 
     public E getDato() {

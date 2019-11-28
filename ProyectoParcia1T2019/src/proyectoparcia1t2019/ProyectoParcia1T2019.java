@@ -13,17 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author windows
  */
 public class ProyectoParcia1T2019 extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        PaneJuego pane=new PaneJuego();
-        
-        
+        PaneJuego pane = new PaneJuego();
+
         Scene scene = new Scene(pane.getRoot(), 600, 650);
         primaryStage.setTitle("Simulation");
         primaryStage.setScene(scene);
@@ -35,6 +35,6 @@ public class ProyectoParcia1T2019 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
     }
-    
 }
