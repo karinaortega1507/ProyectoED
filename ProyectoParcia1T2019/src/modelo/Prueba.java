@@ -8,6 +8,7 @@ package modelo;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Scanner;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -15,15 +16,16 @@ import java.util.Scanner;
  */
 public class Prueba {
     public static void main(String[] args){
-        DoublyCircularLinkedList<Integer> personas = new DoublyCircularLinkedList<>();
-        System.out.println("Ingrese n");
+        /*Circle c = new Circle();
+        DoublyCircularLinkedList<Persona> personas = new DoublyCircularLinkedList<>();
+        System.out.println("Ingrese n: ");
         Scanner s = new Scanner (System.in);
         int p = s.nextInt();
         for(int i = p; i > 0; i--){
-            personas.addFirst(i);
+            personas.addFirst(new Persona (c,250,250,i,true));
         }
         System.out.println(">>> Usando ListIterator (NEXT)");
-        ListIterator<Integer> lit = personas.listIterator(0);
+        ListIterator<Persona> lit = personas.listIterator(0);
         while(lit.hasNext()){
             //int n = lit.next();
             System.out.println(lit.next());
@@ -34,6 +36,7 @@ public class Prueba {
         while(lit.hasPrevious()){
             //int n = lit.previous();
             System.out.println(lit.previous());
-        }
+        }*/
+        
     }
 }
