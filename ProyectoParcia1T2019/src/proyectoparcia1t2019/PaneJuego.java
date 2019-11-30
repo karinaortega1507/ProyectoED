@@ -44,7 +44,7 @@ public class PaneJuego {
         circulo.setCenterY(280.0f);
 
         // Cambiamos el radio del circullo
-        circulo.setRadius(200);
+        circulo.setRadius(150);
         // Fill color.
         //ellipse.setStroke(Color.BLACK);
         circulo2 = new Circle(280.0f+200,280.0f,20);
@@ -52,22 +52,34 @@ public class PaneJuego {
         circulo.setFill(Color.WHITESMOKE);
         circulo2.setFill(Color.AQUAMARINE);
         circulo3.setFill(Color.BLUEVIOLET);
-        root.getChildren().addAll(circulo,circulo2,circulo3);
+        System.out.println("angulo "+Math.atan2(circulo.getCenterY(),circulo.getCenterX()));
+        
+        cargarPersonas(circulo,root);
+        //root.getChildren().addAll(circulo,circulo2,circulo3);
         centro.getChildren().addAll(imageView, root);
-
+        
         areaJuego.setCenter(centro);
+        
 
     }
 
-    public void cargarPersonas() {
+    public void cargarPersonas(Circle c,Group root) {
         // Pedir el numero de personas o recuperarlo del slider
         // Asumiendo un valor fijo de personas
-        int n =5;
-        DoublyCircularLinkedList<Persona> personas = new DoublyCircularLinkedList<>();
+        double angulo, posX, posY;
+        int n = 8;
+        Circle circulo;
+        Persona soldado;
+        //DoublyCircularLinkedList<Persona> personas = new DoublyCircularLinkedList<>();
+        angulo = 0;
         for(int i = n; i > 0; i--){
-            Circle c = new Circle(280.0f+200,280.0f,20);;
-            personas.addFirst(new Persona (c,250,250,i,true));
-        
+            angulo+=360/n;
+            posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
+            posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
+            circulo = new Circle( posX, posY,15);
+            circulo.setFill(Color.CHOCOLATE);        
+            
+            root.getChildren().addAll(circulo);
         }
     }
     
@@ -77,5 +89,4 @@ public class PaneJuego {
         return areaJuego;
 
     }
-
 }

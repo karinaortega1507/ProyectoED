@@ -36,7 +36,8 @@ public class Prueba {
         while(lit.hasPrevious()){
             //int n = lit.previous();
             System.out.println(lit.previous());
-        }*/
+        }
+        */
         
     }
 }

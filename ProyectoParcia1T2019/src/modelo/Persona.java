@@ -98,6 +98,11 @@ public class Persona {
     public double getRadio() {
         return radio;
     }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "posX=" + posX + ", posY=" + posY + ", indicePersona=" + indicePersona + ", espada=" + espada + ", estado=" + estado + ", radio=" + radio + '}';
+    }
     
     
 }
