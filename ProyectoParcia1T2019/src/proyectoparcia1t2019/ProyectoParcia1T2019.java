@@ -24,7 +24,7 @@ public class ProyectoParcia1T2019 extends Application {
     public void start(Stage primaryStage) {
         PaneJuego pane = new PaneJuego();
 
-        Scene scene = new Scene(pane.getRoot(), 600, 650);
+        Scene scene = new Scene(pane.getRoot(), 1300, 650);
         primaryStage.setTitle("Simulation");
         primaryStage.setScene(scene);
         primaryStage.show();
