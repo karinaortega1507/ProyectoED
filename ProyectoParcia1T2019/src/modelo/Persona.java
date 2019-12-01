@@ -33,14 +33,14 @@ public class Persona {
      
     }
     
-    public Persona(Circle circulo, double posX, double posY, int indicePersona, boolean espada) {
+    public Persona(Circle circulo, double posX, double posY, int indicePersona, boolean estado) {
         this.circulo = circulo;
         this.circulo.applyCss();
         this.circulo.getRadius();
         this.posX = posX;
         this.posY = posY;
         this.indicePersona = indicePersona;
-        this.espada = espada;
+        this.estado = estado;
     }
 
     public void setCirculo(Circle circulo) {
