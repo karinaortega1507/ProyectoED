@@ -5,6 +5,7 @@
  */
 package proyectoparcia1t2019;
 
+import javafx.scene.text.Font;
 import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,15 +103,27 @@ public class PaneJuego {
         cargarPersonas(circulo, root,numPersonas,personaInicia,direccion);
          System.out.println(listaPersonas.size());
          System.out.println(listaP.size());
+         int cont = listaPersonas.size();
          try{
-         // using listIterator() method 
-            ListIterator<Persona> iterator = listaPersonas.listIterator(0); 
-   
-            while (iterator.hasNext()) { 
-                if(iterator.next().getIndicePersona()==personaInicia){
-                    iterator.next().getCirculo().setFill(Color.RED);
+            ListIterator<Persona> iterator = listaPersonas.listIterator(personaInicia); 
+            Persona p1 = iterator.next();
+            while (cont > 1) { 
+                
+                if(p1.getIndicePersona() == personaInicia){
+                    p1.getCirculo().setFill(Color.YELLOW);
                 }
-                System.out.println("Value is : " + iterator.next()); 
+                Persona p2 = iterator.next();
+                if(p2.isEstado()){
+                    p2.setEstado(false);
+                    p2.getCirculo().setFill(Color.LIGHTGREY);
+                    p1.getCirculo().setFill(Color.VIOLET);
+                    p1 = iterator.next();
+                    p1.getCirculo().setFill(Color.YELLOW);
+                    cont--;
+                }
+                
+                
+                System.out.println("Value p1 : " + p1 + "value p2" + p2); 
             } 
         } 
   
@@ -197,20 +210,27 @@ public class PaneJuego {
             System.out.println(n);
             posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
             posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
-            circulo = new Circle(posX, posY, 15);
+            circulo = new Circle(posX,posY,20);
             circulo.setFill(Color.BLUE);
             
             
             soldado = new Persona(circulo, posX, posY,n, true);
             listaP.addFirst(n);
             listaPersonas.addFirst(soldado);
-            root.getChildren().addAll(circulo);
+            
+            Label numero= new Label(String.valueOf(n));
+            numero.setFont(new Font("Arial",14));
+            numero.relocate(posX,posY);
+            //StackPane ls= new StackPane(numero,circulo);
+            //ls.relocate(posX, posY);
+            
+            
+            
+            root.getChildren().addAll(circulo,numero);
              n--;
              angulo+=distancia;
         }
-            
-        
-    }
+}
 
     public BorderPane getRoot() {
         return areaJuego;

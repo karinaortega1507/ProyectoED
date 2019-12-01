@@ -138,7 +138,7 @@ public class DoublyCircularLinkedList<E> implements List<E>, Iterable<E> {
             
             @Override
             public boolean hasNext () {
-                return currentIndex < efectivo;
+                return currentIndex < efectivo + index;
             }
 
             @Override
