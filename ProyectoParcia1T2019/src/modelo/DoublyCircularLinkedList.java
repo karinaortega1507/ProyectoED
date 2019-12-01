@@ -15,7 +15,7 @@ import java.util.ListIterator;
  */
 public class DoublyCircularLinkedList<E> implements List<E>, Iterable<E> {
 
-    private Node<E> last;
+   private Node<E> last;
     private int efectivo;
 
     public DoublyCircularLinkedList () {
@@ -61,7 +61,7 @@ public class DoublyCircularLinkedList<E> implements List<E>, Iterable<E> {
 
     @Override
     public E getFirst () {
-        return (E) last.getNext().getDato();
+        return last.getNext().getDato();
     }
 
     @Override
@@ -109,6 +109,7 @@ public class DoublyCircularLinkedList<E> implements List<E>, Iterable<E> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public int size () {
         return efectivo;
     }
@@ -137,7 +138,7 @@ public class DoublyCircularLinkedList<E> implements List<E>, Iterable<E> {
             
             @Override
             public boolean hasNext () {
-                return currentIndex < efectivo+index;
+                return currentIndex < efectivo;
             }
 
             @Override

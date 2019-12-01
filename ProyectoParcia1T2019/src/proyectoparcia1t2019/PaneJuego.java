@@ -48,6 +48,8 @@ public class PaneJuego {
     private Group root = new Group();
     private Circle circulo = new Circle();
     public static DoublyCircularLinkedList<Persona> listaPersonas= new DoublyCircularLinkedList<Persona>();
+    public static DoublyCircularLinkedList<Integer> listaP= new DoublyCircularLinkedList<Integer>();
+
     //Opciones menu
     public Slider Guerreros;
     public ComboBox<String> elegirDireccion;
@@ -96,24 +98,43 @@ public class PaneJuego {
 
     }
      public void simular(int numPersonas, int personaInicia, String direccion) throws InterruptedException{
-         System.out.println(listaPersonas);
-        cargarPersonas(circulo, root,numPersonas,personaInicia,direccion);
-        ListIterator<Persona> lit;
         
-        if(direccion.equalsIgnoreCase("derecha")){
-            lit = listaPersonas.listIterator(personaInicia);
-                while(lit.hasNext()){
-                    
-                    if(lit.next().getIndicePersona()==personaInicia){
-                        lit.next().getCirculo().setFill(Color.RED);
-                      
-                    }
-                    
-                    
-                    System.out.println(lit.next());
-                    
+        cargarPersonas(circulo, root,numPersonas,personaInicia,direccion);
+         System.out.println(listaPersonas.size());
+         System.out.println(listaP.size());
+         try{
+         // using listIterator() method 
+            ListIterator<Persona> iterator = listaPersonas.listIterator(0); 
+   
+            while (iterator.hasNext()) { 
+                if(iterator.next().getIndicePersona()==personaInicia){
+                    iterator.next().getCirculo().setFill(Color.RED);
                 }
-        }      
+                System.out.println("Value is : " + iterator.next()); 
+            } 
+        } 
+  
+        catch (IndexOutOfBoundsException e) { 
+            System.out.println("Exception thrown : " + e); 
+        } 
+         
+         
+//     ListIterator<Persona> lit;
+//        
+//        if(direccion.equalsIgnoreCase("derecha")){
+//            lit = listaPersonas.listIterator(personaInicia);
+//                while(lit.hasNext()){
+//                    
+//                    if(lit.next().getIndicePersona()==personaInicia){
+//                        lit.next().getCirculo().setFill(Color.RED);
+//                      
+//                    }
+//                    
+//                    
+//                    System.out.println(lit.next());
+//                    
+//                }
+//        }      
 //        else{ 
 //            lit = listaPersonas.listIterator(listaPersonas.size());
 //            while(lit.hasPrevious())
@@ -181,7 +202,7 @@ public class PaneJuego {
             
             
             soldado = new Persona(circulo, posX, posY,n, true);
-            
+            listaP.addFirst(n);
             listaPersonas.addFirst(soldado);
             root.getChildren().addAll(circulo);
              n--;

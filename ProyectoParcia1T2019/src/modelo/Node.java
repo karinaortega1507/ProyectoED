@@ -10,45 +10,35 @@ package modelo;
  * @author Rodriguez-Ortega-Baquerizo
  */
 public class Node<E> {
-    
-    private Node next;
-    private Node previous;
     private E dato;
-    /** 
-     * Constructor para la clase Node
-     */
-    public Node(E dato){
-        next = previous = null;
-        this.dato = dato; //el dato se crea al momento de inicializar la lista con valores enteros
-          
-    }
+    private Node<E> next, previous;
     
-    public Node getNext() {
-        return next;
-    }
-
-    public void setNext(Node next) {
-        this.next = next;
-    }
-
-    public Node getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Node previous) {
-        this.previous = previous;
+    public Node(E dato){
+        this.dato = dato;
+        next = previous = null;
     }
 
     public E getDato() {
         return dato;
     }
 
-    public void setDato(E dato) {
+    public void setData(E dato) {
         this.dato = dato;
     }
-    @Override
-    public String toString() {
-        return "dato=" + dato ;
+
+    public Node<E> getNext() {
+        return next;
     }
-    
+
+    public void setNext(Node<E> next) {
+        this.next = next;
+    }
+
+    public Node<E> getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node<E> previous) {
+        this.previous = previous;
+    }
 }
