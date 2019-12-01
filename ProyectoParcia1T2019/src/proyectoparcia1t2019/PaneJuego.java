@@ -166,12 +166,22 @@ public class PaneJuego {
             angulo += 360 / n;
             posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
             posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
+            //se crea un circulo en la posicion x,y asignado a n persona
             circulo = new Circle(posX, posY, 15);
-            circulo.setFill(Color.CHOCOLATE);
-            soldado = new Persona(circulo, posX, posY, personaInicia, true);
-            listaPersonas.addFirst(soldado);
+            if (i == personaInicia)
+                circulo.setFill(Color.YELLOW);   
+            else
+                circulo.setFill(Color.CHOCOLATE);
+            
+            soldado = new Persona(circulo, posX, posY, i, true);
+         //   listaPersonas.addFirst(soldado);
             root.getChildren().addAll(circulo);
         }
+        ListIterator<Persona> lit = listaPersonas.listIterator(listaPersonas.size());
+        while(lit.hasPrevious()){
+            System.out.println(lit.previous());
+        }
+
     }
 
     public BorderPane getRoot() {
