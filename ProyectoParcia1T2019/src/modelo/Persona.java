@@ -21,7 +21,7 @@ import javafx.scene.shape.Circle;
 */
 public class Persona {
     private Circle circulo; 
-    private int posX, posY;
+    private double posX, posY;
     private int indicePersona;
     private boolean espada;
     private boolean estado;
@@ -33,7 +33,7 @@ public class Persona {
      
     }
     
-    public Persona(Circle circulo, int posX, int posY, int indicePersona, boolean espada) {
+    public Persona(Circle circulo, double posX, double posY, int indicePersona, boolean espada) {
         this.circulo = circulo;
         this.circulo.applyCss();
         this.circulo.getRadius();
@@ -47,11 +47,11 @@ public class Persona {
         this.circulo = circulo;
     }
 
-    public void setPosX(int posX) {
+    public void setPosX(double posX) {
         this.posX = posX;
     }
 
-    public void setPosY(int posY) {
+    public void setPosY(double posY) {
         this.posY = posY;
     }
 
@@ -75,11 +75,11 @@ public class Persona {
         return circulo;
     }
 
-    public int getPosX() {
+    public double getPosX() {
         return posX;
     }
 
-    public int getPosY() {
+    public double getPosY() {
         return posY;
     }
 
