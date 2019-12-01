@@ -50,8 +50,9 @@ public class PaneJuego {
     public ComboBox<String> elegirDireccion;
     public TextField elegirIndice;
     public Label l;
-    
-    
+    Button botonSimulacion;
+    Button botonStop;
+    Button sob;  //Caja para saber el jugador Sobreviviente
     
     
     
@@ -86,10 +87,23 @@ public class PaneJuego {
         
         
         
-         ////Como obtener el valor que escogimos del menu opciones
-        String dir= elegirDireccion.getSelectionModel().getSelectedItem().toString();//Donde se encontraran contenidas la categorias de ingreso
-        String indice =elegirIndice.getText();
-        String numeroParticipantes= l.getText();
+        
+        
+        
+        botonSimulacion.setOnAction(e->{
+            String dir= elegirDireccion.getSelectionModel().getSelectedItem().toString();//Donde se encontraran contenidas la categorias de ingreso
+            String indice =elegirIndice.getText();
+            String numeroParticipantes= l.getText();
+            
+            System.out.println(dir+", "+indice+", "+numeroParticipantes);
+        });
+        botonStop.setOnAction(e->{
+            
+            elegirIndice.setText(null);
+            l.setText("1");
+             elegirDireccion.getSelectionModel().select(0);
+             sob.setText("      ");
+        });
         
     }
     public void cargarPersonas(Circle c,Group root) {
@@ -127,6 +141,9 @@ public class PaneJuego {
         Guerreros.setShowTickMarks(false); Guerreros.setShowTickLabels(true);//No se muestran los milimetros y se muestran las etiquetas de numeros enteros
         Guerreros.setMajorTickUnit(1); Guerreros.setBlockIncrement(1);//Se establece las etiquetas de cuanto en cuanto serán visibles y el incremento que va a tener por cada salto en teclado
         Label GuerreroLabel=new Label("Escoja el número de soldados para hacer la simulación"); 
+       
+        HBox h= new HBox();
+        Label l2=new Label("Valor Elegido: ");
         l=new Label("");//Establecida para mostrar los numeros cambiantes en pantalla
         //Método para mostrar en pantalla el número
         Guerreros.valueProperty().addListener( 
@@ -134,9 +151,11 @@ public class PaneJuego {
             public void changed(ObservableValue <? extends Number >  
                       observable, Number oldValue, Number newValue) 
             { 
-                l.setText("value: " + newValue.intValue()); //selecciona solo números enteros
+                String num= String.valueOf(newValue.intValue());
+                l.setText(num); //selecciona solo números enteros
             } 
         }); 
+        
         //2)ORIENTACIÓN DE LA SIMULACIÓN/COMBOBOX
         ObservableList<String> direccion = FXCollections.observableArrayList();
         direccion.addAll("Derecha", "Izquierda");
@@ -155,14 +174,18 @@ public class PaneJuego {
        elegirIndice.setMaxWidth(50);
        
        //4)Botón Simulación/BUTTON
-        Button botonSimulacion=new Button("Comenzar Simulación");
-        Button botonStop=new Button("Terminar Simulación");
+        botonSimulacion=new Button("Comenzar Simulación");
+        botonStop=new Button("Jugar De Nuevo");
         
+        h.getChildren().addAll(l2,l);
+        
+        Label sobText= new Label("Jugador Sobreviviente:      ");
+        sob= new Button("        ");
         
         //PONIENDO EN EL VBOX LAS OPCIONES 
         cajonOpciones.setPadding(new Insets(20)); //Separa el VBox del borde de la ventana 20 pixeles
         cajonOpciones.setSpacing(10); //Espacio entre cada VBox
-        cajonOpciones.getChildren().addAll(GuerreroLabel, Guerreros, l,direccionLabel,elegirDireccion,indiceLabel,elegirIndice,botonSimulacion,botonStop);
+        cajonOpciones.getChildren().addAll(GuerreroLabel, Guerreros, h,direccionLabel,elegirDireccion,indiceLabel,elegirIndice,botonSimulacion,sobText,sob,botonStop);
         //------------------------------------------------------------------------------------
         //Comenzamos a poner en el root los elementos de la simulación
         areaJuego.setRight(cajonOpciones);
