@@ -47,7 +47,7 @@ public class PaneJuego {
     private HBox ordenarBotones;
     private Group root = new Group();
     private Circle circulo = new Circle();
-    public static DoublyCircularLinkedList<Persona> listaPersonas;
+    public static DoublyCircularLinkedList<Persona> listaPersonas= new DoublyCircularLinkedList<Persona>();
     //Opciones menu
     public Slider Guerreros;
     public ComboBox<String> elegirDireccion;
@@ -98,22 +98,21 @@ public class PaneJuego {
      public void simular(int numPersonas, int personaInicia, String direccion) throws InterruptedException{
         cargarPersonas(circulo, root,numPersonas,personaInicia,direccion);
         ListIterator<Persona> lit;
-        HiloCambiarColor ejecutado;
+        
         if(direccion.equalsIgnoreCase("derecha")){
             lit = listaPersonas.listIterator(personaInicia);
                 while(lit.hasNext()){
-                    lit.next().getCirculo().setFill(Color.AQUAMARINE);
-                    /*ejecutado = new HiloCambiarColor(lit.next());
-                    Thread hilo = new Thread(ejecutado);
-                    hilo.start();*/
+                    lit.next().getCirculo().setFill(Color.AQUAMARINE);        
+                    HiloCambiarColor h = new HiloCambiarColor(lit.next());
+                    new Thread(h).start();
                 }
-                
-        }else{ 
-            lit = listaPersonas.listIterator(listaPersonas.size());
-            while(lit.hasPrevious())
-                lit.previous();
-                
-        }
+        }      
+//        else{ 
+//            lit = listaPersonas.listIterator(listaPersonas.size());
+//            while(lit.hasPrevious())
+//                lit.previous();
+//                
+//        }
         
     }
 
@@ -123,7 +122,7 @@ public class PaneJuego {
         public HiloCambiarColor(Persona c) {
             this.c = c;      
         }
-        public void run() {
+        public  void run() {
             try {
                 Thread.sleep(1000);
                 Platform.runLater(()->{
@@ -155,6 +154,8 @@ public class PaneJuego {
     }
 
     public void cargarPersonas(Circle c, Group root,int numeroParticipantes,int personaInicia,String direccion) {
+        
+        // public Persona(Circle circulo, double posX, double posY, int indicePersona, boolean estado) {
         // Pedir el numero de personas o recuperarlo del slider
         // Asumiendo un valor fijo de personas
         double angulo, posX, posY;
@@ -166,22 +167,13 @@ public class PaneJuego {
             angulo += 360 / n;
             posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
             posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
-            //se crea un circulo en la posicion x,y asignado a n persona
             circulo = new Circle(posX, posY, 15);
-            if (i == personaInicia)
-                circulo.setFill(Color.YELLOW);   
-            else
-                circulo.setFill(Color.CHOCOLATE);
+            circulo.setFill(Color.CHOCOLATE);
+            soldado = new Persona(circulo, posX, posY, personaInicia, true);
             
-            soldado = new Persona(circulo, posX, posY, i, true);
-         //   listaPersonas.addFirst(soldado);
+            listaPersonas.addFirst(soldado);
             root.getChildren().addAll(circulo);
         }
-        ListIterator<Persona> lit = listaPersonas.listIterator(listaPersonas.size());
-        while(lit.hasPrevious()){
-            System.out.println(lit.previous());
-        }
-
     }
 
     public BorderPane getRoot() {
