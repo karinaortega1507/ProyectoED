@@ -96,15 +96,22 @@ public class PaneJuego {
 
     }
      public void simular(int numPersonas, int personaInicia, String direccion) throws InterruptedException{
+         System.out.println(listaPersonas);
         cargarPersonas(circulo, root,numPersonas,personaInicia,direccion);
         ListIterator<Persona> lit;
         
         if(direccion.equalsIgnoreCase("derecha")){
             lit = listaPersonas.listIterator(personaInicia);
                 while(lit.hasNext()){
-                    lit.next().getCirculo().setFill(Color.AQUAMARINE);        
-                    HiloCambiarColor h = new HiloCambiarColor(lit.next());
-                    new Thread(h).start();
+                    
+                    if(lit.next().getIndicePersona()==personaInicia){
+                        lit.next().getCirculo().setFill(Color.RED);
+                      
+                    }
+                    
+                    
+                    System.out.println(lit.next());
+                    
                 }
         }      
 //        else{ 
@@ -124,7 +131,7 @@ public class PaneJuego {
         }
         public  void run() {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
                 Platform.runLater(()->{
                     c.getCirculo().setFill(Color.BLACK);
                 });
@@ -140,7 +147,7 @@ public class PaneJuego {
         }
         public void run() {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
                 Platform.runLater(()->{                      
                     //////////Colocar la espada en el jugador
                   ////  c.getCirculo().setFill(Color.BLACK);
@@ -160,20 +167,28 @@ public class PaneJuego {
         // Asumiendo un valor fijo de personas
         double angulo, posX, posY;
         int n = numeroParticipantes;
+        double distancia=360/n;
+        angulo=0;
         Circle circulo;
         Persona soldado;
-        angulo = 0;
-        for (int i = n; i > 0; i--) {
-            angulo += 360 / n;
+        
+        while(n>0){
+            System.out.println(n);
             posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
             posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
             circulo = new Circle(posX, posY, 15);
-            circulo.setFill(Color.CHOCOLATE);
-            soldado = new Persona(circulo, posX, posY, personaInicia, true);
+            circulo.setFill(Color.BLUE);
+            
+            
+            soldado = new Persona(circulo, posX, posY,n, true);
             
             listaPersonas.addFirst(soldado);
             root.getChildren().addAll(circulo);
+             n--;
+             angulo+=distancia;
         }
+            
+        
     }
 
     public BorderPane getRoot() {
