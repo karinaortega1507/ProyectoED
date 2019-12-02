@@ -106,68 +106,95 @@ public class PaneJuego {
          int cont = listaPersonas.size();
          try{
             ListIterator<Persona> iterator = listaPersonas.listIterator(personaInicia); 
-            Persona p1 = iterator.next();
-            while (cont > 1) { 
-                
+            while (iterator.hasNext()) { 
+                Persona p1 = iterator.next();
+                HiloTenerEspada h = new HiloTenerEspada(p1);
                 if(p1.getIndicePersona() == personaInicia){
-                    p1.getCirculo().setFill(Color.YELLOW);
+                    new Thread(h).start();
                 }
-                Persona p2 = iterator.next();
-                if(p2.isEstado()){
-                    p2.setEstado(false);
-                    p2.getCirculo().setFill(Color.LIGHTGREY);
-                    p1.getCirculo().setFill(Color.VIOLET);
-                    p1 = iterator.next();
-                    p1.getCirculo().setFill(Color.YELLOW);
-                    cont--;
-                }
-                
-                
-                System.out.println("Value p1 : " + p1 + "value p2" + p2); 
+                ejecutarSoldado(p1,cont);
             } 
         } 
   
         catch (IndexOutOfBoundsException e) { 
             System.out.println("Exception thrown : " + e); 
         } 
-         
-         
-//     ListIterator<Persona> lit;
-//        
-//        if(direccion.equalsIgnoreCase("derecha")){
-//            lit = listaPersonas.listIterator(personaInicia);
-//                while(lit.hasNext()){
-//                    
-//                    if(lit.next().getIndicePersona()==personaInicia){
-//                        lit.next().getCirculo().setFill(Color.RED);
-//                      
-//                    }
-//                    
-//                    
-//                    System.out.println(lit.next());
-//                    
-//                }
-//        }      
-//        else{ 
-//            lit = listaPersonas.listIterator(listaPersonas.size());
-//            while(lit.hasPrevious())
-//                lit.previous();
-//                
-//        }
         
     }
 
-       
-    class HiloCambiarColor implements Runnable {
+    private void ejecutarSoldado(Persona p1, int cont) {
+        Persona vivo, espada;
+        int indice = p1.getIndicePersona();
+        ListIterator<Persona> iterator = listaPersonas.listIterator(indice); 
+        while(iterator.hasNext()){
+            vivo = iterator.next();
+            HiloCambiarColorVivo h = new HiloCambiarColorVivo(p1);
+            new Thread(h).start();
+            if (vivo.isEstado()){
+                HiloCambiarColorMuerto m = new HiloCambiarColorMuerto(vivo);
+                new Thread(m).start();
+                vivo.setEstado(false);
+                if(p1.isEspada() && p1.isEstado())
+                    new Thread(h).start();
+                espada = iterator.next();
+                HiloTenerEspada e = new HiloTenerEspada(espada);
+                new Thread(e).start();
+                p1 = iterator.next();
+                cont--;
+            }  
+        }
+        while(cont!=1){
+            ListIterator<Persona> iterator2 = listaPersonas.listIterator(1); 
+            while(iterator2.hasNext()){
+                vivo = iterator2.next();
+                HiloCambiarColorVivo h = new HiloCambiarColorVivo(p1);
+                new Thread(h).start();
+                if (vivo.isEstado()){
+                    HiloCambiarColorMuerto m = new HiloCambiarColorMuerto(vivo);
+                    new Thread(m).start();
+                    vivo.setEstado(false);
+                if(p1.isEspada() && p1.isEstado())
+                    new Thread(h).start();
+                    espada = iterator2.next();
+                    HiloTenerEspada e = new HiloTenerEspada(espada);
+                    new Thread(e).start();
+                    p1 = iterator2.next();
+                    cont--;
+            }
+        }
+        
+           
+        }
+                
+         
+    }
+               
+      class HiloCambiarColorMuerto implements Runnable {
         Persona c;
-        public HiloCambiarColor(Persona c) {
+        public HiloCambiarColorMuerto(Persona c) {
             this.c = c;      
         }
         public  void run() {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(4000);
                 Platform.runLater(()->{
-                    c.getCirculo().setFill(Color.BLACK);
+                    c.getCirculo().setFill(Color.LIGHTGRAY);
+                });
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PaneJuego.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    class HiloCambiarColorVivo implements Runnable {
+        Persona c;
+        public HiloCambiarColorVivo(Persona c) {
+            this.c = c;      
+        }
+        public  void run() {
+            try {
+                Thread.sleep(3000);
+                Platform.runLater(()->{
+                    c.getCirculo().setFill(Color.VIOLET);
                 });
             } catch (InterruptedException ex) {
                 Logger.getLogger(PaneJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,10 +208,9 @@ public class PaneJuego {
         }
         public void run() {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(3000);
                 Platform.runLater(()->{                      
-                    //////////Colocar la espada en el jugador
-                  ////  c.getCirculo().setFill(Color.BLACK);
+                    c.getCirculo().setFill(Color.YELLOW);
                 });
             } catch (InterruptedException ex) {
                 Logger.getLogger(PaneJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -206,16 +232,16 @@ public class PaneJuego {
         Circle circulo;
         Persona soldado;
         
-        while(n>0){
+        while( n > 0 ){
             System.out.println(n);
             posX = c.getRadius() * Math.cos(Math.toRadians(angulo));
             posY = c.getRadius() * Math.sin(Math.toRadians(angulo));
             circulo = new Circle(posX,posY,20);
-            circulo.setFill(Color.BLUE);
+            circulo.setFill(Color.VIOLET);
             
             
             soldado = new Persona(circulo, posX, posY,n, true);
-            listaP.addFirst(n);
+            
             listaPersonas.addFirst(soldado);
             
             Label numero= new Label(String.valueOf(n));
@@ -283,11 +309,35 @@ public class PaneJuego {
 
         Label sobText = new Label("Jugador Sobreviviente:      ");
         sob = new Button("        ");
-
+        	Circle c1= new Circle(15);   
+        Circle c2=new Circle(15);
+        Circle c3= new Circle(15);
+        Circle c4= new Circle(15);
+        
+         c1.setFill(Color.VIOLET);
+         c2.setFill(Color.LIGHTGRAY);
+         c3.setFill(Color.YELLOW);
+         
+         
+         
+        Label ll1= new Label("Vivo");
+        Label ll2= new Label ("Muerto");
+        Label ll3= new Label("Con Espada");
+        
+        ll1.setFont(new Font("Arial",18));
+        ll2.setFont(new Font("Arial",18));
+        ll3.setFont(new Font("Arial",18));
+        
+        
+        StackPane n1= new StackPane(c1,ll1);
+        StackPane n2=new StackPane(c2,ll2);
+        StackPane n3= new StackPane(c3,ll3);
+        
         //PONIENDO EN EL VBOX LAS OPCIONES 
         cajonOpciones.setPadding(new Insets(20)); //Separa el VBox del borde de la ventana 20 pixeles
         cajonOpciones.setSpacing(10); //Espacio entre cada VBox
-        cajonOpciones.getChildren().addAll(GuerreroLabel, Guerreros, h, direccionLabel, elegirDireccion, indiceLabel, elegirIndice, botonSimulacion, sobText, sob, botonStop);
+        cajonOpciones.getChildren().addAll(GuerreroLabel, Guerreros, h, direccionLabel, elegirDireccion, indiceLabel, elegirIndice, botonSimulacion, sobText, sob, botonStop,n1,n2,n3);
+        
         //------------------------------------------------------------------------------------
         //Comenzamos a poner en el root los elementos de la simulación
         areaJuego.setRight(cajonOpciones);
