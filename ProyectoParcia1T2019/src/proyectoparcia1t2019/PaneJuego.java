@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -108,66 +108,77 @@ public class PaneJuego {
             ListIterator<Persona> iterator = listaPersonas.listIterator(personaInicia); 
             while (iterator.hasNext()) { 
                 Persona p1 = iterator.next();
-                HiloTenerEspada h = new HiloTenerEspada(p1);
+             
                 if(p1.getIndicePersona() == personaInicia){
-                    new Thread(h).start();
+                    p1.getCirculo().setFill(Color.YELLOW);
                 }
-                ejecutarSoldado(p1,cont);
+                p1.setEspada(true);
+                
             } 
         } 
   
         catch (IndexOutOfBoundsException e) { 
             System.out.println("Exception thrown : " + e); 
         } 
-        
+        ejecutarSoldado();
     }
 
-    private void ejecutarSoldado(Persona p1, int cont) {
-        Persona vivo, espada;
-        int indice = p1.getIndicePersona();
-        ListIterator<Persona> iterator = listaPersonas.listIterator(indice); 
-        while(iterator.hasNext()){
-            vivo = iterator.next();
-            HiloCambiarColorVivo h = new HiloCambiarColorVivo(p1);
-            new Thread(h).start();
-            if (vivo.isEstado()){
-                HiloCambiarColorMuerto m = new HiloCambiarColorMuerto(vivo);
-                new Thread(m).start();
-                vivo.setEstado(false);
-                if(p1.isEspada() && p1.isEstado())
-                    new Thread(h).start();
-                espada = iterator.next();
-                HiloTenerEspada e = new HiloTenerEspada(espada);
-                new Thread(e).start();
-                p1 = iterator.next();
-                cont--;
-            }  
-        }
-        while(cont!=1){
-            ListIterator<Persona> iterator2 = listaPersonas.listIterator(1); 
-            while(iterator2.hasNext()){
-                vivo = iterator2.next();
-                HiloCambiarColorVivo h = new HiloCambiarColorVivo(p1);
-                new Thread(h).start();
-                if (vivo.isEstado()){
-                    HiloCambiarColorMuerto m = new HiloCambiarColorMuerto(vivo);
-                    new Thread(m).start();
-                    vivo.setEstado(false);
-                if(p1.isEspada() && p1.isEstado())
-                    new Thread(h).start();
-                    espada = iterator2.next();
-                    HiloTenerEspada e = new HiloTenerEspada(espada);
-                    new Thread(e).start();
-                    p1 = iterator2.next();
-                    cont--;
-            }
-        }
+    public void ejecutarSoldado() {
         
-           
-        }
+        int muertos=0;
+        
+        ListIterator<Persona> iterator = listaPersonas.listIterator(1); 
+        while(iterator.hasNext()){  
+            
+            Persona asesino=iterator.next();
+            if (asesino.isEspada()) {
+                Persona muerto = iterator.next();
+                HiloCambiarColorMuerto h = new HiloCambiarColorMuerto(muerto);
+                new Thread(h).start();
+                muerto.setEstado(false);
+
+                HiloCambiarColorVivo h2 = new HiloCambiarColorVivo(asesino);
+                new Thread(h2).start();
+                Persona espada = iterator.next();
+                asesino.setEspada(false);
+                asesino.getCirculo().setFill(Color.VIOLET);
+                espada.setEspada(true);
                 
-         
-    }
+                muertos++;
+                System.out.println("Esta muerto" + muertos);
+            }
+            
+            
+        }   
+//       while(muertos!=listaPersonas.size()-1){
+//           
+//            ListIterator<Persona> it = listaPersonas.listIterator(1); 
+//            while(it.hasNext()){  
+//            
+//            Persona asesino=it.next();
+//            if(asesino.isEspada()){
+//                Persona muerto=it.next();
+//                HiloCambiarColorMuerto h = new HiloCambiarColorMuerto(muerto);
+//                new Thread(h).start();
+//                muerto.setEstado(false);
+//                muertos++;
+//                System.out.println("Esta muerto"+muertos);
+//                HiloCambiarColorVivo h2 = new HiloCambiarColorVivo(asesino);
+//                new Thread(h2).start();
+//               
+//               Persona espada=it.next();
+//               if(espada.isEstado()){
+//                    HiloTenerEspada h3 = new HiloTenerEspada(espada);
+//                    new Thread(h3).start();
+//                   espada.setEspada(true);
+//                   asesino.setEspada(false);
+//               }
+//              
+//            }   
+            
+//        }   
+//       }   
+  }
                
       class HiloCambiarColorMuerto implements Runnable {
         Persona c;
@@ -176,7 +187,7 @@ public class PaneJuego {
         }
         public  void run() {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(3000);
                 Platform.runLater(()->{
                     c.getCirculo().setFill(Color.LIGHTGRAY);
                 });
@@ -192,7 +203,7 @@ public class PaneJuego {
         }
         public  void run() {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(12000);
                 Platform.runLater(()->{
                     c.getCirculo().setFill(Color.VIOLET);
                 });
@@ -208,7 +219,7 @@ public class PaneJuego {
         }
         public void run() {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(8000);
                 Platform.runLater(()->{                      
                     c.getCirculo().setFill(Color.YELLOW);
                 });
